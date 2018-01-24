@@ -1,0 +1,23 @@
+{
+  "name": "dbbenchmarks",
+  "version": "1.0.0",
+  "description": "A database benchmark",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "generate": "node src/generate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedsm/dbBenchmarks.git"
+  },
+  "author": "Pedro Mendonca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pedsm/dbBenchmarks/issues"
+  },
+  "homepage": "https://github.com/pedsm/dbBenchmarks#readme",
+  "dependencies": {
+    "faker": "^4.1.0"
+  }
+}
