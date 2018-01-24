@@ -3,15 +3,7 @@ const fs = require('fs')
 let personId = 0
 let companyId = 0
 
-/** Person interface
- * firstname
- * lastname
- * phone
- * age
- * company: one id
- * friends: many to many 
- */
-
+// Generates a person
 function createPerson(companiesMax, pplMax) {
     return {
         id: personId++,
@@ -19,7 +11,7 @@ function createPerson(companiesMax, pplMax) {
         lastName: faker.name.lastName(),
         phone: faker.phone.phoneNumberFormat(),
         age: (faker.random.number() % 40) + 18,
-        company: (faker.random.number() % companiesMax) + 1,
+        company: (faker.random.number() % companiesMax),
         friends: (() => {
            const maxSize = (faker.random.number() % 90) + 10
            const ids = new Set()
@@ -31,6 +23,7 @@ function createPerson(companiesMax, pplMax) {
     }
 }
 
+// Generates a company
 function createCompany() {
     return {
         id: companyId++,
@@ -39,6 +32,7 @@ function createCompany() {
     }
 }
 
+// makes the whole dataset
 function generateEverything() {
     const maxPpl = 1000
     const maxCompanies = 100
@@ -47,7 +41,7 @@ function generateEverything() {
         companies: []
     }
     for(let i = 0; i < maxPpl; i++) {
-        returnable.people.push(createPerson(maxPpl, maxCompanies))
+        returnable.people.push(createPerson(maxCompanies, maxPpl))
     }
     for(let i = 0; i < maxCompanies; i++) {
         returnable.companies.push(createCompany())
@@ -56,5 +50,8 @@ function generateEverything() {
 }
 
 fs.writeFile('data.json', JSON.stringify(generateEverything()), (err) => {
+    if (err) {
+        throw err
+    }
     console.log('File written')
 })
