@@ -10,3 +10,13 @@ services:
         nofile:
             soft: 40000
             hard: 40000
+  mysql:
+      image: mysql:8
+      ports:
+        - "3306:3306"
+      restart: always
+      environment:
+        MYSQL_DATABASE: db
+        MYSQL_USER: user
+        MYSQL_PASSWORD: 123
+        MYSQL_ROOT_PASSWORD: 123
