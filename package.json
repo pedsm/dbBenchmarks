@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "generate": "node src/generate.js"
+    "generate": "node src/generate.js",
+    "mysql": "node src/populateMysql.js",
+    "neo4j": "node src/populateNeo4j.js"
   },
   "repository": {
     "type": "git",
