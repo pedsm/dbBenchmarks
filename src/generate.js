@@ -13,9 +13,9 @@ function createPerson(companiesMax, pplMax) {
         age: (faker.random.number() % 40) + 18,
         company: (faker.random.number() % companiesMax),
         friends: (() => {
-           const maxSize = (faker.random.number() % 90) + 10
+           const maxFriends = (faker.random.number() % 90) + 10
            const ids = new Set()
-           for(let i = 0; i < maxSize; i++) {
+           for(let i = 0; i < maxFriends; i++) {
                ids.add(faker.random.number() % pplMax)
            }
            return [...ids]
@@ -34,8 +34,8 @@ function createCompany() {
 
 // makes the whole dataset
 function generateEverything() {
-    const maxPpl = 1000
-    const maxCompanies = 100
+    const maxPpl = 10000
+    const maxCompanies = 1000
     const returnable = {
         people: [],
         companies: []

@@ -18,7 +18,7 @@ CREATE TABLE `companies`.`people` (
   CONSTRAINT `workingAt`
     FOREIGN KEY (`company`)
     REFERENCES `companies`.`companies` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 CREATE TABLE `companies`.`friendships` (
@@ -31,11 +31,11 @@ CREATE TABLE `companies`.`friendships` (
   CONSTRAINT `friendA`
     FOREIGN KEY (`aId`)
     REFERENCES `companies`.`people` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `friendB`
     FOREIGN KEY (`bId`)
     REFERENCES `companies`.`people` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 

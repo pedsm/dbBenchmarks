@@ -6,8 +6,8 @@
   "scripts": {
     "test": "mocha",
     "generate": "node src/generate.js",
-    "mysql": "node src/populateMysql.js",
-    "neo4j": "node src/populateNeo4j.js"
+    "mysql": "node --max-old-space-size=8192 src/populateMysql.js",
+    "neo4j": "node --max-old-space-size=8192 src/populateNeo4j.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "faker": "^4.1.0",
     "mysql": "^2.15.0",
     "neo4j-bulk": "^0.1.3",
+    "neo4j-driver": "^1.5.3",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   }
