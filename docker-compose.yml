@@ -5,11 +5,13 @@ services:
       ports:
        - "7474:7474"
        - "7687:7687"
+      environment:
+       - NEO4J_HEAP_MEMORY=8192 # configure the heap memory
       ulimits:
-        nproc: 40000
-        nofile:
-            soft: 40000
-            hard: 40000
+          nproc: 40000
+          nofile:
+              soft: 40000
+              hard: 40000
   mysql:
       image: mysql:8
       ports:

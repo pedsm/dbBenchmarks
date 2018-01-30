@@ -1,0 +1,1 @@
+curl --data "@neo4j.json" --header "Authorization: Basic bmVvNGo6MTIz" -X POST http://localhost:7474/db/data/batch

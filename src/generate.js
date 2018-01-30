@@ -1,4 +1,5 @@
 const faker = require('faker')
+const json2csv = require('json-2-csv').json2csv
 const fs = require('fs')
 let personId = 0
 let companyId = 0
@@ -12,15 +13,23 @@ function createPerson(companiesMax, pplMax) {
         phone: faker.phone.phoneNumberFormat(),
         age: (faker.random.number() % 40) + 18,
         company: (faker.random.number() % companiesMax),
-        friends: (() => {
-           const maxFriends = (faker.random.number() % 90) + 10
-           const ids = new Set()
-           for(let i = 0; i < maxFriends; i++) {
-               ids.add(faker.random.number() % pplMax)
-           }
-           return [...ids]
-        })()
     }
+}
+
+// Generates a friends list
+let friendshipId = 0
+function createFriendsList(index, pplMax) {
+    const maxFriends = (faker.random.number() % 200) + 10
+    const ids = new Set()
+    for (let i = 0; i < maxFriends; i++) {
+        ids.add({
+            id: friendshipId,
+            aId: index,
+            bId: faker.random.number() % pplMax
+        })
+    }
+    friendshipId++
+    return [...ids]
 }
 
 // Generates a company
@@ -34,14 +43,16 @@ function createCompany() {
 
 // makes the whole dataset
 function generateEverything() {
-    const maxPpl = 10000
-    const maxCompanies = 1000
+    const maxPpl = 100000
+    const maxCompanies = 10000
     const returnable = {
         people: [],
-        companies: []
+        companies: [],
+        friendships: []
     }
     for(let i = 0; i < maxPpl; i++) {
         returnable.people.push(createPerson(maxCompanies, maxPpl))
+        returnable.friendships.push(...createFriendsList(i, maxPpl))
     }
     for(let i = 0; i < maxCompanies; i++) {
         returnable.companies.push(createCompany())
@@ -49,9 +60,23 @@ function generateEverything() {
     return returnable
 }
 
-fs.writeFile('data.json', JSON.stringify(generateEverything()), (err) => {
-    if (err) {
-        throw err
-    }
-    console.log('File written')
-})
+const fileData = generateEverything()
+console.log(`File written:
+People:${fileData.people.length}
+Companies:${fileData.companies.length}
+Friendships:${fileData.friendships.length}
+    `)
+
+function saveFile(path, data) {
+    json2csv(data, ((err, csv) => {
+        fs.writeFile(`data/${path}`, csv, (err) => {
+            if (err) {
+                throw err
+            }
+            console.log(`File ${path} written`)
+        })
+    }))
+}
+saveFile('people.csv', fileData.people)
+saveFile('companies.csv', fileData.companies)
+saveFile('friendships.csv', fileData.friendships)
