@@ -55,13 +55,13 @@ function printMarkdown(neoQuery, sqlQuery, neoDelay, sqlDelay) {
 async function bench() {
     await benchmark(`MATCH (n:PERSON) RETURN n LIMIT 1000`, `SELECT * FROM people LIMIT 1000`)
     await benchmark(
-        `MATCH (c:COMPANY {id: 10})-[r]-(n:PERSON) RETURN c`,
+        `MATCH (c:COMPANY {id: '10'})-[r]-(n:PERSON) RETURN c`,
         `SELECT * from people WHERE people.company = 10`)
     await benchmark(
-        `MATCH (a:COMPANY {id: 10})-[r]-(n:PERSON) RETURN n`,
+        `MATCH (a:COMPANY {id: '10'})-[r]-(n:PERSON) RETURN n`,
         `SELECT * from people INNER JOIN companies ON people.company=companies.id WHERE companies.id = 10`)
     await benchmark(
-        `MATCH (p:PERSON {id: 10})-[r]-(friends:PERSON) RETURN friends`,
+        `MATCH (p:PERSON {id: '10'})-[r]-(friends:PERSON) RETURN friends`,
         `SELECT *
         FROM people as user, people as friend, friendships
         WHERE user.id = aId AND friend.id = bId AND user.id = 10`)
@@ -71,7 +71,7 @@ async function bench() {
         FROM people as user, people as friend, friendships
         WHERE user.id = aId AND friend.id = bId`)
     await benchmark(
-        `MATCH (a:COMPANY {id: 10})-[r1]-(x:PERSON)-[r2]-(y:PERSON)-[r3]-(b:COPMANY {id:52}) RETURN x,y`,
+        `MATCH (a:COMPANY {id: '10'})-[r1]-(x:PERSON)-[r2]-(y:PERSON)-[r3]-(b:COPMANY {id:52}) RETURN x,y`,
         `SELECT *
         FROM people as user, people as friend, friendships
         WHERE user.id = aId AND friend.id = bId AND user.company = 10 AND friend.company = 52`)

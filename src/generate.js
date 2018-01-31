@@ -17,18 +17,15 @@ function createPerson(companiesMax, pplMax) {
 }
 
 // Generates a friends list
-let friendshipId = 0
 function createFriendsList(index, pplMax) {
     const maxFriends = (faker.random.number() % 200) + 10
     const ids = new Set()
     for (let i = 0; i < maxFriends; i++) {
         ids.add({
-            id: friendshipId,
             aId: index,
             bId: faker.random.number() % pplMax
         })
     }
-    friendshipId++
     return [...ids]
 }
 
@@ -75,7 +72,11 @@ function saveFile(path, data) {
             }
             console.log(`File ${path} written`)
         })
-    }))
+    }), {
+        delimiter: {
+            wrap: '"'
+        }
+    })
 }
 saveFile('people.csv', fileData.people)
 saveFile('companies.csv', fileData.companies)
